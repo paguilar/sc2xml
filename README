@@ -1,0 +1,129 @@
+
+SC2XML: Simple C to XML serializer
+
+This program is in its first stages and intends to serialize C structs and 
+unions to XML.
+The current version converts the most widely used C-structs constructs
+to XML using the xmlTextWriter routines included in libxml2.
+
+This program could potentially serialize other C constructs and almost any
+C code since it uses an almost full-compatible C grammar (see the header comment
+of scanner.l and parser.y for details).
+
+Check examples files in data/ to know what is supported and what is not.
+
+================================================================================
+Building
+================================================================================
+
+See the INSTALL file
+
+================================================================================
+How to use it
+================================================================================
+
+Simply type
+
+$ sc2xml <file0>|<dir0> [file1] ...
+
+
+Parsing structs/unions defined as macros:
+
+Suppose you have a header file called test3.h with a struct defined as macro
+called 
+
+#define def_struct_data(prefix,number,code_number) \
+...
+
+Create a file called test3.stub.h in which you only include the file test3.h
+and call the macro:
+
+$  cat test3.stub.h 
+#include "test3.h"
+
+def_struct_data(prefix,number,code_number)
+
+
+SC2XML will call the C pre-processor that will produce a file with the macro 
+expanded. This file can be parsed by the grammar because now it contains C code
+without any macros.
+
+The resulting XML file will be called test3.h.xml as with the other files.
+
+================================================================================
+TODO
+================================================================================
+
+Things that are not yet supported:
+
+----------
+
+Anonymous structs/unions
+
+----------
+
+Bit fields different than integers
+
+int x1:8; 		/* supported */
+int x2:BIT; 	/* NOT supported */
+
+----------
+
+The size of a nested array of structs is discarded:
+
+struct struct1 {
+	...
+	struct {
+		...
+	} my_struct[10];			/* Size is discarded */
+};
+
+----------
+
+Comma separated field causes the next field to be discarded:
+
+struct ipv6hdr {
+	__u8    priority:4,			/* Parsed correctly */
+			version:4;			/* Discarded */
+	...
+};
+
+----------
+
+================================================================================
+Known bugs
+================================================================================
+
+A lot. 
+Some of them are described here.
+
+----------
+
+In nested structs, in a case like this:
+
+struct {
+	...
+	struct st2 {
+
+	} struct_in;
+} struct_out;
+
+'struct_in' will be tagged correctly as <struct_name>, 
+but 'struct_out' will be tagged wrongly as <struct_attribute>.
+
+----------
+
+Under certain conditions, the name of a nested struct is wrongly tagged 
+as <typedef> 
+
+----------
+
+Under certain conditions, the attributes such as '__attribute__((packed))' 
+in nested structs gives an error.
+
+================================================================================
+Feedback and bug reports
+================================================================================
+
+pedro (dot) paguilar (dot) iniestra (at) gmail (dot) com
+

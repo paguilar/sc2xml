@@ -1,0 +1,151 @@
+2011-12-23 20:49  paguilar
+
+	* /INSTALL, /README: Add the INSTALL file
+
+2011-12-23 00:10  paguilar
+
+	* /src/main.c: Fix crashes do to buffer overflows. Thanks valgrind!
+
+2011-12-22 23:47  paguilar
+
+	* /README, /data/test3.h, /data/test4.h: Update README and add
+	  test4.h with unsupported cases
+
+2011-12-22 22:50  paguilar
+
+	* /data/test1.h, /data/test2.h, /data/test3.h, /data/test3.stub.h:
+	  These are the models that should work with the parser. If these
+	  files work, it means that most of the structs in the wild will be
+	  supported.
+
+2011-12-22 22:39  paguilar
+
+	* /data/ipv6.h, /data/test1.h, /data/test3.h, /data/test3.stub.h:
+	  Add new examples
+
+2011-12-22 22:04  paguilar
+
+	* /src/main.c, /src/scanner.c, /src/scanner.l, /src/xml.c: Supports
+	  all the the given examples without any problems. However, I know
+	  of some cases, not present in the given examples, that do not
+	  work.
+
+2011-12-19 23:49  paguilar
+
+	* /ChangeLog, /src/main.c, /src/parser.c, /src/parser.y,
+	  /src/scanner.c, /src/scanner.l, /src/xml.c, /src/xml.h: Add full
+	  support for nested struct attributes and names.
+
+2011-12-18 23:43  paguilar
+
+	* /src/parser.y, /src/xml.c, /src/xml.h: Add function
+	  xml_nested_st_attr_name() that will take crea of nested structs
+	  that close with something like '__attribute__((packed)) name;'
+
+2011-12-18 23:25  paguilar
+
+	* /src/parser.y: Added a direct_declarator of type
+	  __attribute((packed))name for nested structs
+
+2011-12-18 16:50  paguilar
+
+	* /src/main.c, /src/parser.c: For parsing structs/union defined as
+	  macros, first create a simple header file with the call to the
+	  macro that defines the struct/union, then call the C
+	  pre-processor that produces a new file with the macro expanded.
+	  This file can be parsed by the grammar because now it contains C
+	  code without any macros that can be compiled.
+
+2011-12-12 00:08  paguilar
+
+	* /src/scanner.c, /src/scanner.l: Added support for multi-line
+	  pre-processor directive 'define'
+
+2011-03-25 14:50  piter
+
+	* /README: First decent README
+
+2011-03-25 14:25  piter
+
+	* /src/misc.c, /src/misc.h, /src/parser.c, /src/parser.y,
+	  /src/scanner.c, /src/scanner.l, /src/xml.c, /src/xml.h: Comment
+	  code using doxygen style.
+
+2011-03-25 11:28  piter
+
+	* /data/test1.h: Update test1.h file that contains the most common
+	  cases.
+
+2011-03-25 11:27  piter
+
+	* /configure, /configure.ac, /src/xml.c: Substitute printf() by
+	  debug_info()
+
+2011-03-25 10:43  piter
+
+	* /configure, /configure.ac, /src/Makefile.am, /src/misc.c,
+	  /src/sc2xml.h, /src/symbol_table.c, /src/symbol_table.h: The
+	  common 'make' targets work properly, including 'make dist'
+
+2011-03-21 23:10  piter
+
+	* /README, /src/main.c, /src/misc.c, /src/misc.h, /src/parser.c,
+	  /src/parser.y, /src/scanner.c, /src/scanner.l, /src/xml.c: Start
+	  commenting the code.
+	  Remove some compile warnings.
+
+2011-03-19 21:35  piter
+
+	* /README, /src/main.c: Support directories as program args.
+
+2011-03-19 13:41  piter
+
+	* /data/test1.h, /src/parser.c, /src/parser.y, /src/sc2xml.h,
+	  /src/xml.c, /src/xml.h: All the files given for testing (located
+	  in /data) are processed correctly!
+	  I want to test a bit more, though.
+
+2011-03-18 23:33  piter
+
+	* /data/test1.h, /data/test2.h, /src/parser.c, /src/parser.y,
+	  /src/scanner.c, /src/scanner.l, /src/xml.c, /src/xml.h: Add
+	  initial support for user-defeined data types.
+	  Function ptrs wich return data type is user-defined doesn't work
+	  yet.
+	  The whole feature stills needs testing.
+
+2011-03-18 10:14  piter
+
+	* /src/xml.c: Remove unused code that was under #if
+
+2011-03-18 10:06  piter
+
+	* /src/parser.c: This is the first commited version that works!!!
+
+2011-03-18 10:01  piter
+
+	* /Makefile.in, /src/Makefile.in: Remove Makefile.in
+
+2011-03-18 09:58  piter
+
+	* /autogen.sh: Change the order in which they appear according to
+	  how they're called.
+
+2011-03-18 09:57  piter
+
+	* /src/Makefile.am: Use include_HEADERS instead of NOINST_H_FILES.
+	  Needed for make's dist target.
+
+2011-03-18 08:34  piter
+
+	* /AUTHORS, /COPYING, /ChangeLog, /Makefile.am, /Makefile.in,
+	  /NEWS, /README, /autogen.sh, /configure, /configure.ac, /data,
+	  /data/avr-adc-data.h, /data/avr-gpio-data.h,
+	  /data/buttons-data.h, /data/gpio-data.h, /data/sw-timers-data.h,
+	  /data/test1.h, /data/test2.h, /src, /src/.kdbgrc.sc2xml,
+	  /src/Makefile.am, /src/Makefile.in, /src/lex.yy.c, /src/main.c,
+	  /src/misc.c, /src/misc.h, /src/parser.c, /src/parser.tab.h,
+	  /src/parser.y, /src/sc2xml.h, /src/scanner.c, /src/scanner.l,
+	  /src/symbol_table.c, /src/symbol_table.h, /src/xml.c, /src/xml.h:
+	  Initial sc2xml import
+
